@@ -1,0 +1,31 @@
+name: DeployGuard
+on:
+  workflow_dispatch:
+    inputs:
+      deployment_action: { required: true, type: string }
+      deployment_operation_id: { required: true, type: string }
+      project_id: { required: true, type: string }
+      aws_region: { required: true, type: string }
+      aws_role_arn: { required: true, type: string }
+      vpc_id: { required: true, type: string }
+      public_subnet_ids: { required: true, type: string }
+      app_port: { required: true, type: string }
+      health_check_path: { required: true, type: string }
+      terraform_state_bucket: { required: true, type: string }
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  deploy:
+    uses: Hassan-Sajjad72/Deploy-Guard-dev/.github/workflows/deployguard-reusable.yml@a54f863a13f5ebe0fb3e83c3b52515ba61461cd8
+    with:
+      deployment_action: ${{ inputs.deployment_action }}
+      deployment_operation_id: ${{ inputs.deployment_operation_id }}
+      project_id: ${{ inputs.project_id }}
+      aws_region: ${{ inputs.aws_region }}
+      aws_role_arn: ${{ inputs.aws_role_arn }}
+      vpc_id: ${{ inputs.vpc_id }}
+      public_subnet_ids: ${{ inputs.public_subnet_ids }}
+      app_port: ${{ fromJSON(inputs.app_port) }}
+      health_check_path: ${{ inputs.health_check_path }}
+      terraform_state_bucket: ${{ inputs.terraform_state_bucket }}
