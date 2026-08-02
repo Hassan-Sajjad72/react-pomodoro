@@ -1,0 +1,16 @@
+name: DeployGuard OIDC diagnostic
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  claims:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect public OIDC claims safely
+        shell: bash
+        run: |
+          set -euo pipefail
+          export RESPONSE="$(curl -fsS -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com")"
+          python3 -c 'import os,json,base64; t=json.loads(os.environ["RESPONSE"])["value"]; p=t.split(".")[1]; p += "=" * (-len(p) % 4); c=json.loads(base64.urlsafe_b64decode(p)); print("DEPLOYGUARD_PUBLIC_OIDC_CLAIMS=" + json.dumps({k:c.get(k) for k in ["iss","aud","sub","job_workflow_ref","repository","repository_owner"]},separators=(",",":")))'
