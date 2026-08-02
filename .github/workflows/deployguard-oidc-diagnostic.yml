@@ -1,0 +1,18 @@
+name: DeployGuard OIDC Diagnostic
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  claims:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect public OIDC identity claims
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const token = await core.getIDToken('sts.amazonaws.com');
+            const payload = JSON.parse(Buffer.from(token.split('.')[1], 'base64url').toString());
+            const claims = { iss: payload.iss, aud: payload.aud, sub: payload.sub, job_workflow_ref: payload.job_workflow_ref, repository: payload.repository, repository_owner: payload.repository_owner };
+            console.log('DEPLOYGUARD_PUBLIC_CLAIMS=' + JSON.stringify(claims));
