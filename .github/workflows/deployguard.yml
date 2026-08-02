@@ -12,12 +12,13 @@ on:
       app_port: { required: true, type: string }
       health_check_path: { required: true, type: string }
       terraform_state_bucket: { required: true, type: string }
+      container_profile: { required: true, type: string }
 permissions:
   contents: read
   id-token: write
 jobs:
   deploy:
-    uses: Hassan-Sajjad72/Deploy-Guard-dev/.github/workflows/deployguard-reusable.yml@a54f863a13f5ebe0fb3e83c3b52515ba61461cd8
+    uses: Hassan-Sajjad72/Deploy-Guard-dev/.github/workflows/deployguard-reusable.yml@6a80233b96ae888a8d3804d5cdbe2e88a58b202b
     with:
       deployment_action: ${{ inputs.deployment_action }}
       deployment_operation_id: ${{ inputs.deployment_operation_id }}
@@ -29,3 +30,4 @@ jobs:
       app_port: ${{ fromJSON(inputs.app_port) }}
       health_check_path: ${{ inputs.health_check_path }}
       terraform_state_bucket: ${{ inputs.terraform_state_bucket }}
+      container_profile: ${{ inputs.container_profile }}
