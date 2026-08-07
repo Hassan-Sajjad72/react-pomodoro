@@ -12,14 +12,16 @@ on:
       app_port: { required: true, type: string }
       health_check_path: { required: true, type: string }
       terraform_state_bucket: { required: true, type: string }
-      container_profile: { required: true, type: string }
-      output_directory: { required: true, type: string }
+      app_root: { required: true, type: string }
+      docker_strategy: { required: true, type: string }
+      generated_dockerfile_base64: { required: true, type: string }
+      managed_database_config_base64: { required: true, type: string }
 permissions:
   contents: read
   id-token: write
 jobs:
   deploy:
-    uses: Hassan-Sajjad72/Deploy-Guard-dev/.github/workflows/deployguard-reusable.yml@0747e2662d32b8ece7314af58164a4f7e1b0ea86
+    uses: Hassan-Sajjad72/Deploy-Guard-dev/.github/workflows/deployguard-reusable.yml@20df8f0a4f24bc7356246e50317b8f22a68086ab
     with:
       deployment_action: ${{ inputs.deployment_action }}
       deployment_operation_id: ${{ inputs.deployment_operation_id }}
@@ -31,5 +33,7 @@ jobs:
       app_port: ${{ fromJSON(inputs.app_port) }}
       health_check_path: ${{ inputs.health_check_path }}
       terraform_state_bucket: ${{ inputs.terraform_state_bucket }}
-      container_profile: ${{ inputs.container_profile }}
-      output_directory: ${{ inputs.output_directory }}
+      app_root: ${{ inputs.app_root }}
+      docker_strategy: ${{ inputs.docker_strategy }}
+      generated_dockerfile_base64: ${{ inputs.generated_dockerfile_base64 }}
+      managed_database_config_base64: ${{ inputs.managed_database_config_base64 }}
