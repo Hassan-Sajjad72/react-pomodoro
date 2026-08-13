@@ -80,3 +80,5 @@ See [Releases](https://github.com/afonsopacifer/react-pomodoro/releases) for det
 
 ## License
 [MIT License](https://github.com/afonsopacifer/react-pomodoro/blob/master/LICENSE.md) © [Afonso Pacifer](http://afonsopacifer.com/)
+
+<!-- DeployGuard P0-1 candidate-routing canary -->
