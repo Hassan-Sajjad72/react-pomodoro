@@ -221,7 +221,7 @@ export default class Pomodoro extends React.Component {
 
           <div className="container display timer">
             <span className="time">{this.format(this.state.time)}</span>
-            <span className="timeType">The {this.formatType(this.state.timeType)} time!</span>
+            <span className="timeType">DeployGuard V2 - The {this.formatType(this.state.timeType)} time!</span>
           </div>
 
           <div className="container display types">
